@@ -7,61 +7,75 @@ input_t = '''467..114..
 ..592.....
 ......755.
 ...$.*....
-.664.598..
-''' 
+.664.598..''' 
 
 sum = 0
 
 input_prep = input_t.splitlines()
-for line_num in range(len(input_prep)):
+for line_num in range((len(input_prep))):
+    input_prep[line_num] ="."+input_prep[line_num]+"."
+print (input_prep)
+for line_num in range((len(input_prep))):
     current_num = ""
     num_pos = []
+    print("line {}, content: {}".format(line_num, input_prep[line_num]))
     for sign in range(len(input_prep[line_num])):
+        #print("sign {} at index {}".format(input_prep[line_num][sign], sign))
         if input_prep[line_num][sign].isdigit():                    
             current_num += (input_prep[line_num][sign])
             num_pos.append(sign)
             print ("add", input_prep[line_num][sign], "to current number:", current_num, "fount on position ", sign)
         else:
-            if num_pos:
-                print ("Checking for surrounding symbols...")
-                print ("num contains position ", num_pos, "in line", line_num)
+            if current_num:
                 number_valid = False
-                for i in range((num_pos[0])-1,(num_pos[-1])+1):
-                    print("checking line", line_num-1, "pos", i)
-                    print (input_prep[line_num-1][i].isdigit())
-                    print (input_prep[line_num-1][i] != ".")
-                    if not (input_prep[line_num-1][i].isdigit()) and (input_prep[line_num-1][i] != "."):
-                        print("found sign", input_prep[line_num-1][i], "in line", line_num-1, "pos", i)
-                        number_valid = True
-                        break
-                    else:
-                        print ("no valid sign")
-                    print("checking line", line_num+1, "pos", i)
-                    if not (input_prep[line_num+1][i].isdigit()) and (input_prep[line_num+1][i] != "."):
-                        print("found sign", input_prep[line_num+1][i], "in line", line_num+1, "pos", i)
-                        number_valid = True
-                        break
-                if number_valid is False:
-                    try:
-                        print("checking line", line_num, "pos", num_pos[0]-1)
-                        if (input_prep[line_num][num_pos[0]-1] != "."):
-                            number_valid = True
+                print("current number", current_num, "containing pos", num_pos)
+                print("validating number...")
+                line_up = line_num-1
+                print (line_up)
+                line_down =  line_num+1
+                print (line_down)
+                left_pos = num_pos[0]-1
+                print (left_pos) 
+                right_pos = num_pos[-1]+1
+                print(right_pos)
+
+                if line_up >= 0:
+                    print("cecking upper line")
+                    for i in range (left_pos,right_pos+1):
+                        print ("checking pos", i,"in line", line_up)
+                        if not input_prep[line_up][i].isdigit() and input_prep[line_up][i] != ".":
+                            print (input_prep[line_up][i].isdigit(),"is not a digit")
+                            print (input_prep[line_up][i], "is not a .")
+                            number_valid = True 
                             break
-                    except IndexError:
-                        pass
-                    try:
-                        print("checking line", line_num, "pos", num_pos[0]+1)
-                        if ((input_prep[line_num][num_pos[-1]+1] == ".")):
-                            number_valid = True
+                        #print("checking {}".format(i))
+
+                if line_down <= len(input_prep)-1 and not number_valid:
+                    print("checking lower line...")
+                    for i in range (left_pos,right_pos+1):
+                        print ("checking pos", i,"in line", line_down)
+                        if not input_prep[line_down][i].isdigit() and input_prep[line_down][i] != ".":
+                            print (input_prep[line_down][i].isdigit(),"is not a digit")
+                            print (input_prep[line_down][i], "is not a .")
+                            number_valid = True 
                             break
-                    except IndexError:
-                        pass
+
+                if input_prep[line_num][left_pos] != "." and not number_valid:
+                    print("checking left pos...")
+                    print (input_prep[line_num][i], "is not a .")
+                    number_valid = True
+                if input_prep[line_num][right_pos] != "." and not number_valid:
+                    print("checking right pos...")
+                    print (input_prep[line_num][i], "is not a .")
+                    number_valid = True
+
+
                 if number_valid:
-                    print ("number is valid")
                     sum += int(current_num)
-                    print ("current num", current_num, "added to sum:", sum )
+                    print("added ", current_num, "to sum:", sum)
                 else:
-                    print ("number is invalid")
+                    print("number", current_num, "is invalid")
+                     
                 current_num = ""
                 num_pos = []
-            
+              
