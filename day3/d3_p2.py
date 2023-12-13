@@ -139,8 +139,7 @@ input= '''.........874.772...........787..........556.....292......141..........
 .........&........873........=...........*...........*....292..-..............................*......................597*923................
 ..............................871.......497..........159........452.................900...116..450...878...........................302...574'''
 
-input_prod = """
-........................617.........123...........341.........................293..................38..19.753..................533..........
+input_prod = """........................617.........123...........341.........................293..................38..19.753..................533..........
 565.......................-..............951.....+..........354.....697.58....*.....941............*.....*.........+....529....&.....36.....
 ....1.....225...73...................472.......................-....*......920..999.......646..771.433......407..405.....*.......426*.......
 .....*....*........./227..-113........@...825/.....348...881......603...........%....793...=............235*..............472.........82.941
@@ -281,6 +280,10 @@ input_prod = """
 .............152#............*......792...334......741........................570*....335..............137..........338..........*......+...
 952.........................................................793......583..........623............11........730............50.116.........446"""
 
+input_prod_t = '''........................617.........123...........341.........................293..................38..19.753..................533..........
+565.......................-.....*........951.....+..........354.....697.58....*.....941............*.....*.........+....529....&.....36.....
+....1.....225...73...................472.......................-....*......920..999.......646..771.433......407..405.....*.......426*.......'''
+
 input_t = '''4..35...11
 ...*......
 ...467..63
@@ -294,7 +297,7 @@ input_t = '''4..35...11
 
 sum = 0
 
-input_prep = input_prod.splitlines()
+input_prep = input.splitlines()
 for line_num in range((len(input_prep))):
     input_prep[line_num] ="."+input_prep[line_num]+"."
 line_len = len(input_prep[0])
@@ -360,7 +363,7 @@ for line in range (1,len(input_prep)):
             
             if touching_num_cnt > 2:
                 print("gear has more than one surrounding digit")
-                break
+                #break
 
             #untenliegende felder nach zahlen absuchen
             is_one_num = False
@@ -376,7 +379,7 @@ for line in range (1,len(input_prep)):
             
             if touching_num_cnt > 2:
                 print("gear has more than one surrounding digit")
-                break
+                #break
 
             if input_prep[line+1][char].isdigit() and touching_num_cnt <= 2:
                 print ("lower is digit",input_prep[line+1][char])
@@ -392,7 +395,7 @@ for line in range (1,len(input_prep)):
             
             if touching_num_cnt > 2:
                 print("gear has more than one surrounding digit")
-                break
+                #break
 
             if input_prep[line+1][char+1].isdigit() and touching_num_cnt <= 2:
                 print ("lower right is digit",input_prep[line+1][char+1])
@@ -403,7 +406,7 @@ for line in range (1,len(input_prep)):
 
             if touching_num_cnt <2:
                 print("gear has only one touching number")
-                break
+                #break
             
             if touching_num_cnt == 2:
                 print("yey, gear has 2 matching number, now do further magic here")
@@ -412,19 +415,21 @@ for line in range (1,len(input_prep)):
                 print ("found num positions", found_num_pos)
                 gear_rat_nums = []
                 for pair in found_num_pos:
-                    line, num_pos = pair
-                    print("line", line)
+                    line_n, num_pos = pair
+                    print("line_n", line_n)
                     print("num_pos", num_pos)
-                    num = str(input_prep[line][num_pos])
+                    print("num from line", input_prep[line_n][num_pos])
+                    num = str(input_prep[line_n][num_pos])
+                    print("num", num)
                     #add digits on left to num
                     num_left = num_pos
-                    while input_prep[line][num_left-1].isdigit():
-                        num = str(input_prep[line][num_left-1]) + num
+                    while input_prep[line_n][num_left-1].isdigit():
+                        num = str(input_prep[line_n][num_left-1]) + num
                         num_left -=1
 
                     #add digits on right to num
-                    while input_prep[line][num_pos+1].isdigit():
-                        num += str(input_prep[line][num_pos+1])
+                    while input_prep[line_n][num_pos+1].isdigit():
+                        num += str(input_prep[line_n][num_pos+1])
                         num_pos +=1
 
                     gear_rat_nums.append(num)
@@ -434,5 +439,5 @@ for line in range (1,len(input_prep)):
                 sum += int(gear_rat_nums[0])*int(gear_rat_nums[1])
                 gearcnt += 1
                 print ("product", int(gear_rat_nums[0])*int(gear_rat_nums[1]), "has been added to sum:", sum)
-print(gearcnt)
+print("gearcount", gearcnt)
 print(sum)
