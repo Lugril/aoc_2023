@@ -301,120 +301,120 @@ line_len = len(input_prep[0])
 fillstring = "."*line_len
 input_prep.append(fillstring)
 input_prep.insert(0,fillstring)
-##print (input_prep[0])
-##print (input_prep[1])
+#print (input_prep[0])
+#print (input_prep[1])
 gearcnt = 0
 
 for line in range (1,len(input_prep)):
-    #print("linecontent", input_prep[line])
+    print("linecontent", input_prep[line])
     for char in range (1,line_len):
-        ##print("char", input_prep[line][char])
+        #print("char", input_prep[line][char])
         if input_prep[line][char] == "*":
-            #print("gear found at line", line, "char", char)
+            print("gear found at line", line, "char", char)
             touching_num_cnt = 0
             is_one_num = False
-            #print("is_one_num reset False")
+            print("is_one_num reset False")
             found_num_pos = []
-            #print (found_num_pos)
+            print (found_num_pos)
             #überliegende felder nach zahlen absuchen
             if input_prep[line-1][char-1].isdigit():
-                #print ("upper left is digit",input_prep[line-1][char-1])
+                print ("upper left is digit",input_prep[line-1][char-1])
                 touching_num_cnt += 1
-                #print("touching_num_cnt", touching_num_cnt)
+                print("touching_num_cnt", touching_num_cnt)
                 is_one_num = True
-                #print("is_one_num set True")
+                print("is_one_num set True")
                 found_num_pos.append([line-1,char-1])
 
             if input_prep[line-1][char].isdigit():
-                #print ("upper is digit",input_prep[line-1][char])
+                print ("upper is digit",input_prep[line-1][char])
                 if not is_one_num:
                     found_num_pos.append([line-1,char])
                     touching_num_cnt += 1
-                    #print("touching_num_cnt", touching_num_cnt)
+                    print("touching_num_cnt", touching_num_cnt)
                     is_one_num = True
-                    #print("is_one_num set True")
+                    print("is_one_num set True")
             else:
                 is_one_num = False
 
             if input_prep[line-1][char+1].isdigit():
-                #print ("upper right is digit",input_prep[line-1][char+1])
+                print ("upper right is digit",input_prep[line-1][char+1])
                 if not is_one_num:
                     found_num_pos.append([line-1,char+1])
                     touching_num_cnt += 1
-                    #print("touching_num_cnt", touching_num_cnt)
+                    print("touching_num_cnt", touching_num_cnt)
 
             #seitliche felder nach zahlen absuchen
             if input_prep[line][char-1].isdigit():
-                #print ("left is digit", input_prep[line][char-1])
+                print ("left is digit", input_prep[line][char-1])
                 touching_num_cnt += 1
-                #print("touching_num_cnt", touching_num_cnt)
+                print("touching_num_cnt", touching_num_cnt)
                 if touching_num_cnt <= 2:
                     found_num_pos.append([line,char-1])
             
             if input_prep[line][char+1].isdigit() and touching_num_cnt <= 2:
-                #print("right is digit", input_prep[line][char+1])
+                print("right is digit", input_prep[line][char+1])
                 touching_num_cnt += 1
-                #print("touching_num_cnt", touching_num_cnt)
+                print("touching_num_cnt", touching_num_cnt)
                 if touching_num_cnt <= 2:
                     found_num_pos.append([line,char+1])
             
             if touching_num_cnt > 2:
-                #print("gear has more than one surrounding digit")
+                print("gear has more than one surrounding digit")
                 break
 
             #untenliegende felder nach zahlen absuchen
             is_one_num = False
-            #print("is_one_num reset False")
+            print("is_one_num reset False")
             if input_prep[line+1][char-1].isdigit() and touching_num_cnt <= 2:
-                #print ("lower left is digit",input_prep[line+1][char-1])
+                print ("lower left is digit",input_prep[line+1][char-1])
                 touching_num_cnt += 1
-                #print("touching_num_cnt", touching_num_cnt)
+                print("touching_num_cnt", touching_num_cnt)
                 is_one_num = True
-                #print("is_one_num set True")
+                print("is_one_num set True")
                 if touching_num_cnt <= 2:
                     found_num_pos.append([line+1,char-1])
             
             if touching_num_cnt > 2:
-                #print("gear has more than one surrounding digit")
+                print("gear has more than one surrounding digit")
                 break
 
             if input_prep[line+1][char].isdigit() and touching_num_cnt <= 2:
-                #print ("lower is digit",input_prep[line+1][char])
+                print ("lower is digit",input_prep[line+1][char])
                 if not is_one_num:
                     found_num_pos.append([line+1,char])
                     touching_num_cnt += 1
-                    #print("touching_num_cnt", touching_num_cnt)
+                    print("touching_num_cnt", touching_num_cnt)
                     is_one_num = True
-                    #print("is_one_num set True")
+                    print("is_one_num set True")
             else:
                 is_one_num = False
-                #print("is_one_num sett False")
+                print("is_one_num sett False")
             
             if touching_num_cnt > 2:
-                #print("gear has more than one surrounding digit")
+                print("gear has more than one surrounding digit")
                 break
 
             if input_prep[line+1][char+1].isdigit() and touching_num_cnt <= 2:
-                #print ("lower right is digit",input_prep[line+1][char+1])
+                print ("lower right is digit",input_prep[line+1][char+1])
                 if not is_one_num:
                     found_num_pos.append([line+1,char+1])
                     touching_num_cnt += 1
-                    #print("touching_num_cnt", touching_num_cnt)
+                    print("touching_num_cnt", touching_num_cnt)
 
             if touching_num_cnt <2:
-                #print("gear has only one touching number")
+                print("gear has only one touching number")
                 break
             
             if touching_num_cnt == 2:
-                #print("yey, gear has 2 matching number, now do further magic here")
+                print("yey, gear has 2 matching number, now do further magic here")
 
                 # find left and right of numbers
-                #print ("found num positions", found_num_pos)
+                print ("found num positions", found_num_pos)
                 gear_rat_nums = []
                 for pair in found_num_pos:
                     line, num_pos = pair
-                    #print("line", line)
-                    #print("num_pos", num_pos)
+                    print("line", line)
+                    print("num_pos", num_pos)
                     num = str(input_prep[line][num_pos])
                     #add digits on left to num
                     num_left = num_pos
@@ -428,13 +428,11 @@ for line in range (1,len(input_prep)):
                         num_pos +=1
 
                     gear_rat_nums.append(num)
-                    ##print ("num", num)
+                    #print ("num", num)
                     print ("gear_rat_num", gear_rat_nums)
 
                 sum += int(gear_rat_nums[0])*int(gear_rat_nums[1])
                 gearcnt += 1
-                #print ("product", int(gear_rat_nums[0])*int(gear_rat_nums[1]), "has been added to sum:", sum)
+                print ("product", int(gear_rat_nums[0])*int(gear_rat_nums[1]), "has been added to sum:", sum)
 print(gearcnt)
 print(sum)
-
-            #determinen ob es exakt zwei zahlen sind oder wenieger oder mehr
