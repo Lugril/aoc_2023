@@ -21,27 +21,19 @@ input = open("input.txt", "r")
 input = input.read()
 almanac = input.split("\n\n")
 seeds = almanac.pop(0)
-#print(seeds)
-#for x in almanac:
-#    print(x)
+
 for alma in range(len(almanac)):
     almanac[alma]=convert_map(almanac[alma])
-#for x in almanac:
-#    print(x)
 
 _, seeds = seeds.split(": ")
 seeds = seeds.split(" ")
 
-#print("converted", convert_map(seed_soil))
-
 print("mappings:")
-#print(seeds)
 result = []
 for seed in seeds:
     result.append(int(seed))
 print(result)
 for mapping in almanac:
-    #print(mapping)
     destination = []
     source = [] 
     reach = []
@@ -49,10 +41,6 @@ for mapping in almanac:
         destination.append(int(entry[0]))
         source.append(int(entry[1]))
         reach.append(int(entry[2]))
-    #print("dest", destination)
-    #print("src", source)
-    #print("reach", reach)
-    #print("conver", result)
     result = get_destination(destination,source,reach,result)
     print(result)
 
