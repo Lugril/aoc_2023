@@ -13,21 +13,29 @@ def convert_map(map):
         map[line] = map[line].split(" ")
     return(map)
 
-
+print("reading file")
 input = open("input.txt", "r")
 input = input.read()
+print("splitting input")
 almanac = input.split("\n\n")
 seed_ranges = almanac.pop(0)
 
+print("seeds seperatet from maps")
+print("converting maps to lists")
 for alma in range(len(almanac)):
+    print("converting alma:", (almanac[alma]))
     almanac[alma]=convert_map(almanac[alma])
 
+print("splitting seedranges")
 _, seed_ranges = seed_ranges.split(": ")
+print("splitting seedranges more")
 seed_ranges = seed_ranges.split(" ")
 
 tmp_result = 0
 for seed in range (0,len(seed_ranges),2):
     seeds = []
+    print("adding seedrage {}/{}".format(seed/2,len(seed_ranges)/2))
+    print("{}-{}".format(seed_ranges[seed], seed_ranges[seed+1]))
     #print(seed_ranges[seed])
     for reach in range(int(seed_ranges[seed+1])):
         seeds.append(int(seed_ranges[seed])+reach)
