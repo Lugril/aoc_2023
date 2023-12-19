@@ -17,20 +17,30 @@ def convert_map(map):
 input = open("input.txt", "r")
 input = input.read()
 almanac = input.split("\n\n")
-seeds = almanac.pop(0)
+seed_ranges = almanac.pop(0)
 
 for alma in range(len(almanac)):
     almanac[alma]=convert_map(almanac[alma])
 
-_, seeds = seeds.split(": ")
-seeds = seeds.split(" ")
+_, seed_ranges = seed_ranges.split(": ")
+seed_ranges = seed_ranges.split(" ")
 
-print("mappings:")
-result = []
-for seed in seeds:
-    result.append(int(seed))
-print(result)
+tmp_result = 0
+for seed in range (0,len(seed_ranges),2):
+    seeds = []
+    #print(seed_ranges[seed])
+    for reach in range(int(seed_ranges[seed+1])):
+        seeds.append(int(seed_ranges[seed])+reach)
+    
+
+
+#print("mappings:")
+print("seedcount", len(seeds))
+result = seeds.copy()
+block = 0
 for mapping in almanac:
+    block += 1
+    print(f"making progress: Block {block}/7")
     destination = []
     source = [] 
     reach = []
@@ -39,9 +49,9 @@ for mapping in almanac:
         source.append(int(entry[1]))
         reach.append(int(entry[2]))
     result = get_destination(destination,source,reach,result)
-    print(result)
+    #print(result) 
 
-print(sorted(result))
+#print(sorted(result))
 print("nearest location:", sorted(result)[0])
     
 
