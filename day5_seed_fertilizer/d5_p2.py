@@ -14,7 +14,7 @@ def convert_map(map):
     return(map)
 
 print("reading file")
-input = open("input.txt", "r")
+input = open("input_test.txt", "r")
 input = input.read()
 print("splitting input")
 almanac = input.split("\n\n")
@@ -32,8 +32,9 @@ print("splitting seedranges more")
 seed_ranges = seed_ranges.split(" ")
 
 tmp_result = 0
+seeds = []
 for seed in range (0,len(seed_ranges),2):
-    seeds = []
+    print(seeds)
     print("adding seedrage {}/{}".format(seed/2,len(seed_ranges)/2))
     print("{}-{}".format(seed_ranges[seed], seed_ranges[seed+1]))
     #print(seed_ranges[seed])
